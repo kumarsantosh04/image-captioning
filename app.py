@@ -17,8 +17,10 @@ VOCAB_URL = 'https://drive.google.com/file/d/1eJN5ip8bauOakbO9nDdqPS3dc6q5Dtxm/v
 
 @st.cache_data
 def loading_model(path, vocab):
-    gdown.download(MODEL_URL, path, quiet=False, fuzzy=True)
-    gdown.download(VOCAB_URL, vocab, quiet=False, fuzzy=True)
+    if not os.path.isfile(path):
+        gdown.download(MODEL_URL, path, quiet=False, fuzzy=True)
+    if not os.path.isfile(vocab):
+        gdown.download(VOCAB_URL, vocab, quiet=False, fuzzy=True)
     
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model_state = torch.load(path, map_location=torch.device(device))

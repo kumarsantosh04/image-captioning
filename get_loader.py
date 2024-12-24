@@ -7,22 +7,23 @@ from torch.utils.data import DataLoader, Dataset
 from PIL import Image  # Load img
 import torchvision.transforms as transforms
 
-# Download with: python -m spacy download en
-spacy_eng = spacy.load("en_core_web_sm")
-
 
 class Vocabulary:
+    spacy_eng = spacy.load("en_core_web_sm")
+
     def __init__(self, freq_threshold):
         self.itos = {0: "<PAD>", 1: "<SOS>", 2: "<EOS>", 3: "<UNK>"}
         self.stoi = {"<PAD>": 0, "<SOS>": 1, "<EOS>": 2, "<UNK>": 3}
         self.freq_threshold = freq_threshold
+        # Download with: python -m spacy download en
+        
 
     def __len__(self):
         return len(self.itos)
 
     @staticmethod
     def tokenizer_eng(text):
-        return [tok.text.lower() for tok in spacy_eng.tokenizer(text)]
+        return [tok.text.lower() for tok in Vocabulary.spacy_eng.tokenizer(text)]
 
     def build_vocabulary(self, sentence_list):
         frequencies = {}
