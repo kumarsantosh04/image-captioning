@@ -1,6 +1,7 @@
 pandas==2.2.3
 scipy==1.14.1
 spacy==3.8.3
+en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
 matplotlib==3.10.0
 torch==2.5.1
 torchvision==0.20.1
