@@ -8,12 +8,18 @@ from PIL import Image
 import torch
 import torchvision.transforms as T
 from model import EncoderDecoder
+import gdown
 
 # Set custom web page title
 st.set_page_config(page_title="Caption Generator App", page_icon="📷", layout="wide")
+MODEL_URL = 'https://drive.google.com/file/d/1gQUwVrO45R4REWFR_EXwhxmEEP9Zd33m/view'
+VOCAB_URL = 'https://drive.google.com/file/d/1eJN5ip8bauOakbO9nDdqPS3dc6q5Dtxm/view'
 
 @st.cache_data
 def loading_model(path, vocab):
+    gdown.download(MODEL_URL, path, quiet=False, fuzzy=True)
+    gdown.download(VOCAB_URL, vocab, quiet=False, fuzzy=True)
+    
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model_state = torch.load(path, map_location=torch.device(device))
     
@@ -39,7 +45,7 @@ def loading_model(path, vocab):
 
     return model, device, vocab
 
-model, device, vocab = loading_model('flickr30k_attention_model_state.pth', 'flickr30k_vocab.pkl')
+model, device, vocab = loading_model('attention_model_state.pth', 'vocab.pkl')
 
 upload_area, result_area = st.columns(2)
 attention_plots = st.expander(label='Attention Plots:  Model focus areas while captioning')
