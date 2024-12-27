@@ -15,7 +15,7 @@ st.set_page_config(page_title="Caption Generator App", page_icon="📷", layout=
 MODEL_URL = 'https://drive.google.com/file/d/1gQUwVrO45R4REWFR_EXwhxmEEP9Zd33m/view'
 VOCAB_URL = 'https://drive.google.com/file/d/1eJN5ip8bauOakbO9nDdqPS3dc6q5Dtxm/view'
 
-@st.cache_data
+@st.cache_data(persist=True, show_spinner=True)
 def loading_model(path, vocab):
     if not os.path.isfile(path):
         gdown.download(MODEL_URL, path, quiet=False, fuzzy=True)
