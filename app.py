@@ -125,7 +125,7 @@ if uploaded_image is not None:
         if st.button("Regenerate ⟳", type="primary"):
             generated_caption, attn_mask = get_caps_from(img_tranformed)
             print(generated_caption)
-        st.code(generated_caption, language="markdown")
+        st.code(generated_caption, language="markdown", wrap_lines=True)
         
             
     with result_area:
